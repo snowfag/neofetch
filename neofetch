@@ -1236,7 +1236,7 @@ get_bios() {
                     -f /sys/devices/virtual/dmi/id/bios_date ]]; then
                 bios=$(< /sys/devices/virtual/dmi/id/bios_vendor)
                 bios+=" $(< /sys/devices/virtual/dmi/id/bios_version)"
-                bios+=" ($(< /sys/devices/virtual/dmi/id/bios_date))"
+                bios+=" ($(tr -d '[:space:]' < /sys/devices/virtual/dmi/id/bios_date))"
             fi
         ;;
     esac
