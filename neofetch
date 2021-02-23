@@ -1239,6 +1239,12 @@ get_bios() {
                 bios+=" ($(tr -d '[:space:]' < /sys/devices/virtual/dmi/id/bios_date))"
             fi
         ;;
+        Windows)
+            bios=$(wmic bios get Manufacturer,Name)
+            bios=${bios/Manufacturer}
+            bios=${bios/Name}
+            bios+="($(wmic bios get ReleaseDate | awk 'BEGIN {OFS="/"}NR==2{print substr($1,1,4), substr($1,5,2), substr($1,7,2)}'))"
+        ;;
     esac
 }
 get_model() {
